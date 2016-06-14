@@ -5,6 +5,12 @@
 @modal-bg-hex: #7f8e93;
 @modal-bg-rgba: rgba(0, 29, 40, 0.5);
 
+.global-font(@size; @weight: 400) {
+  font-family: @font-global;
+  font-size: @size;
+  font-weight: @weight
+}
+
 #all-categories {
   height: 87px;
   width: 197px;
@@ -16,8 +22,7 @@
   text-align: center;
   p {
     padding-top: 33px;
-    font-family: @font-global;
-    font-weight: 400;
+    .global-font(17px; 700);
   }
   &:hover {
     background-color: @btn-hover-bg;
@@ -32,8 +37,7 @@
   position: relative;
   top: 100px;
   &>p {
-    font-size: 22px;
-    font-family: @font-global;
+    .global-font(20px; 700);
     margin-bottom: 5px;
     color: @font-colour-primary;
     margin-top: -11px;
@@ -106,7 +110,7 @@
       width: 145px;
     }
     h4 {
-      font-size: 17px;
+      .global-font(15px);
       margin: 10px;
       color: @bg-primary;
       @media all and (max-width:900px) {
@@ -133,14 +137,14 @@
   background-color: @bg-primary;
   overflow: hidden;
   h2 {
-    font-size: 24px;
+    .global-font(20px; 700);
     padding-left: 18px;
     @media all and (min-width: 650px) and (max-width: 900px) {
       font-size: 20px;
     }
   }
   p {
-    font-size: 17px;
+    .global-font(15px; 400);
     padding-left: 18px;
     padding-right: 18px;
     @media all and (min-width: 650px) and (max-width: 900px) {
