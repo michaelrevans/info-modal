@@ -42,6 +42,7 @@ $(document).ready(function() {
   // dynamically position some elements for better mobile usability/layout
   var $windowHeight = $(window).innerHeight(); // height of screen
   var $activateBtnHeight = $activateBtn.outerHeight(); // height of button, shouldn't change, but would rather not hardcode
+  var $modalHeight = $modal.outerHeight();
   var aactivateBtnMarginTop = (2 * $windowHeight / 5) - $activateBtnHeight;
   $activateBtn.css({'marginTop': aactivateBtnMarginTop}).fadeIn(300);
 
