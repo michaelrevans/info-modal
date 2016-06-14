@@ -4,6 +4,8 @@ $(document).ready(function() {
       $body = $('body'),
       $activateBtn = $('#all-categories'),
       $category = $('.category');
+      $catDesc = $('#category-description');
+      $catDescDiv = $catDesc.find('div');
 
   $('#all-categories').on('click', function() {
     $activateBtn.fadeOut(400, function() {
@@ -20,21 +22,21 @@ $(document).ready(function() {
   });
 
   $category.on('mouseover', function() {
-    var $this = $(this),
-        $catDesc = $('#category-description')
-        $catDescDiv = $catDesc.find('div');
+    var $this = $(this);
+    var contentQueue = $catDescDiv.queue();
     if (!$this.hasClass('active')) {
+      $catDescDiv.queue([]);
       $category.removeClass('active');
       $this.addClass('active');
       var titleIndex = $category.index($this);
       var newTitle = categories[titleIndex]['title'],
           newContent = categories[titleIndex]['content'];
-      $catDescDiv.animate({'marginTop': '+=450px'}, function() {
+      $catDescDiv.stop().animate({'marginTop': '470px'}, 400, function() {
         $catDesc.find('h2').text(newTitle);
         $catDesc.find('p').text(newContent);
       });
-      $catDescDiv.animate({'marginTop': '-=900px'}, {duration: 0, complete: function() {
-        $catDescDiv.animate({'marginTop': '+=450px'});
+      $catDescDiv.animate({'marginTop': '-470px'}, {duration: 0, queue: true, complete: function() {
+        $catDescDiv.animate({'marginTop': '0px'}, 400);
       }});
     };
   });
