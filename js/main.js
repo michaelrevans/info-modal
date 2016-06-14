@@ -10,22 +10,23 @@ $(document).ready(function() {
   $('#all-categories').on('click', function() {
     positionModal();
     $activateBtn.fadeOut(400, function() {
-      $modal.fadeIn(400).addClass('active');
+      $modal.fadeIn(0).addClass('active');
       $body.addClass('modal-active');
     });
   });
 
   $('.close-modal>span').on('click', function() {
-    positionBtn();
     $modal.fadeOut(400, function() {
-      $activateBtn.fadeIn(400);
       $body.removeClass('modal-active');
+      $activateBtn.fadeIn(400, function() {
+        positionBtn();
+      });
     }).removeClass('active');
   });
 
   $category.on('mouseover', function() {
-    var $this = $(this);
-    var contentQueue = $catDescDiv.queue();
+    var $this = $(this),
+        ontentQueue = $catDescDiv.queue();
     if (!$this.hasClass('active')) {
       $catDescDiv.queue([]);
       $category.removeClass('active');
@@ -45,10 +46,12 @@ $(document).ready(function() {
 
   // dynamically position some elements for better mobile usability/layout
   var positionModal = function() {
+    console.log('positionModal run');
     var $windowHeight = $(window).height(), // height of screen
         $windowWidth = $(window).width(),
-        $catDescHeight = $modal.outerHeight(),
-        modalTop = ($windowHeight - $catDescHeight) / 2;
+        $modalHeight = $modal.outerHeight(),
+        $closeModalHeight = $modal.find('.close-modal').outerHeight();
+        modalTop = (($windowHeight - $modalHeight) / 2) - $closeModalHeight;
     if ($windowWidth >= 650) {
       $modal.css({'top': modalTop});
     } else {
@@ -56,7 +59,9 @@ $(document).ready(function() {
     };
   };
 
+
   var positionBtn = function() {
+    console.log('positionbtn run');
     var $windowHeight = $(window).height(), // height of screen
         $activateBtnHeight = $activateBtn.outerHeight(), // height of button, shouldn't change, but would rather not hardcode
         activateBtnMarginTop = (2 * $windowHeight / 5) - $activateBtnHeight;
