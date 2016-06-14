@@ -8,6 +8,7 @@ $(document).ready(function() {
       $catDescDiv = $catDesc.find('div');
 
   $('#all-categories').on('click', function() {
+    positionModal();
     $activateBtn.fadeOut(400, function() {
       $modal.fadeIn(400).addClass('active');
       $body.addClass('modal-active');
@@ -15,6 +16,7 @@ $(document).ready(function() {
   });
 
   $('.close-modal>span').on('click', function() {
+    positionBtn();
     $modal.fadeOut(400, function() {
       $activateBtn.fadeIn(400);
       $body.removeClass('modal-active');
@@ -42,10 +44,35 @@ $(document).ready(function() {
   });
 
   // dynamically position some elements for better mobile usability/layout
-  var $windowHeight = $(window).innerHeight(); // height of screen
-  var $activateBtnHeight = $activateBtn.outerHeight(); // height of button, shouldn't change, but would rather not hardcode
-  var $modalHeight = $modal.outerHeight();
-  var aactivateBtnMarginTop = (2 * $windowHeight / 5) - $activateBtnHeight;
-  $activateBtn.css({'marginTop': aactivateBtnMarginTop}).fadeIn(300);
+  var positionModal = function() {
+    var $windowHeight = $(window).height(), // height of screen
+        $windowWidth = $(window).width(),
+        $catDescHeight = $modal.outerHeight(),
+        modalTop = ($windowHeight - $catDescHeight) / 2;
+    if ($windowWidth >= 650) {
+      $modal.css({'top': modalTop});
+    } else {
+      $modal.css({'top': 0});
+    };
+  };
+
+  var positionBtn = function() {
+    var $windowHeight = $(window).height(), // height of screen
+        $activateBtnHeight = $activateBtn.outerHeight(), // height of button, shouldn't change, but would rather not hardcode
+        activateBtnMarginTop = (2 * $windowHeight / 5) - $activateBtnHeight;
+    $activateBtn.css({'marginTop': activateBtnMarginTop}).fadeIn(300);
+  }
+
+  var positionElements = function() {
+    if ($body.hasClass('modal-active')) {
+      positionModal();
+    } else {
+      positionBtn();
+    }
+  };
+  
+  positionElements();
+
+  $(window).resize(positionElements);
 
 });
