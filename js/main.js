@@ -70,7 +70,7 @@ $(document).ready(function() {
       positionBtn();
     }
   };
-  
+
   positionElements();
 
   $(window).resize(positionElements);
